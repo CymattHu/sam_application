@@ -1,0 +1,8 @@
+# virtual env
+venv/
+sam/
+# model files
+*.pth
+# cache
+__pycache__/
+sys
