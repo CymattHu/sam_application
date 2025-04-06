@@ -10,6 +10,8 @@ source sam/bin/activate
 pip install torch torchvision
 pip install git+https://github.com/facebookresearch/segment-anything.git
 pip install opencv-python matplotlib
+pip install labelme
+pip install pycocotools
 ```
 # Downloading the SAM Model
 There are three available model checkpoints. You can download them from the official repository:
@@ -18,4 +20,9 @@ There are three available model checkpoints. You can download them from the offi
 # Quickly Obtain Key Points from an Image
 To extract image coordinates easily, you can use the following online tool:
 [🔗 Image Coordinate Extractor](https://uutool.cn/img-coord/)
+
+# Labeling Image options
+To label image you can use two tools:
+    -labelme
+    -CVAT(https://github.com/cvat-ai/cvat)
 
