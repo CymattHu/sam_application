@@ -12,11 +12,11 @@ class SegmentationDataset(Dataset):
         self.mask_dir = mask_dir
         self.transform = transforms.Compose([transforms.ToTensor()])
 
-        # 加载标注文件（假设是 JSON 格式）
+        # load JSON annotations
         with open(annotation_file, 'r') as f:
             self.annotations = json.load(f)
         
-        # 图像文件名（假设 JSON 标注中包含图像的文件名）
+        # image filenames and mask filenames
         self.image_filenames = [ann['image_filename'] for ann in self.annotations]
         self.mask_filenames = [ann['mask_filename'] for ann in self.annotations]
     
@@ -24,17 +24,16 @@ class SegmentationDataset(Dataset):
         return len(self.image_filenames)
     
     def __getitem__(self, idx):
-        # 获取图像和掩码的文件路径
+        # get image and mask file paths
         image_path = os.path.join(self.image_dir, self.image_filenames[idx])
         mask_path = os.path.join(self.mask_dir, self.mask_filenames[idx])
         
-        # 加载图像和掩码
+        # load image and mask
         image = Image.open(image_path).convert("RGB")
-        mask = Image.open(mask_path).convert("L")  # 处理为单通道灰度图
+        mask = Image.open(mask_path).convert("L") 
         
-        # 如果有 transform，进行预
         image = self.transform(image)
-        mask = np.array(mask)  # 转为 NumPy 数组，方便后面处理
-        mask = torch.tensor(mask, dtype=torch.long)  # 转为 tensor 格式
+        mask = np.array(mask)  
+        mask = torch.tensor(mask, dtype=torch.long) 
         
         return image, mask
